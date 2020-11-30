@@ -1,0 +1,43 @@
+img, {
+}
+
+.fas.fa-tachometer-alt {
+}
+
+.sidebar-icon {
+  width: 18px;
+  height: 18px;
+  margin-bottom: 5px;
+  margin-right: 2px;
+}
+
+svg {
+  margin-bottom: 3px;
+}
+
+.h {
+}
+
+card-heading {
+  color: black;
+}
+
+card-heading {
+  color: black;
+}
+
+.card-heading {
+  color: black;
+}
+
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
