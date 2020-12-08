@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Register - Brand</title>
+    <title>Register - HasalaTech</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
     <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
@@ -24,7 +24,7 @@
         <div class="container-fluid">
             <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="index.html">
                 <div class="sidebar-brand-icon rotate-n-15"><img src="assets/img/logo.svg" style="width: 71px;height: 39px;"></div>
-                <div class="sidebar-brand-text mx-3"><span style="color: rgb(255,255,255);">My Budget</span></div>
+                <div class="sidebar-brand-text mx-3"><span style="color: rgb(255,255,255);">HasalaTech</span></div>
             </a>
         </div>
     </nav>
@@ -42,15 +42,26 @@
                             </div>
                             <form class="user">
                                 <div class="form-group row">
-                                    <div class="col-sm-6 mb-3 mb-sm-0"><input class="form-control form-control-user" type="text" id="exampleFirstName" placeholder="First Name" name="first_name"></div>
-                                    <div class="col-sm-6"><input class="form-control form-control-user" type="text" id="exampleLastName" placeholder="Last Name" name="last_name"></div>
+                                    <div class="col-sm-6 mb-3 mb-sm-0"><input id = "regFName" class="form-control form-control-user" type="text"  placeholder="First Name" ></div>
+                                    <div class="col-sm-6"><input id = "regLName" class="form-control form-control-user" type="text"  placeholder="Last Name" ></div>
                                 </div>
-                                <div class="form-group"><input class="form-control form-control-user" type="email" id="email" aria-describedby="emailHelp" placeholder="Email Address" name="email"></div>
+                                <div class="form-group"><input id = "regEmail" class="form-control form-control-user" type="email"  placeholder="Email Address"></div>
                                 <div class="form-group row">
-                                    <div class="col-sm-6 mb-3 mb-sm-0"><input class="form-control form-control-user" type="password" id="password" placeholder="Password" name="password"></div>
-                                    <div class="col-sm-6"><input class="form-control form-control-user" type="password" id="exampleRepeatPasswordInput" placeholder="Repeat Password" name="password_repeat"></div>
-                                </div><button id = "register" class="btn btn-primary btn-block text-white btn-user" type="submit">Register Account</button>
-                                <hr><a class="btn btn-primary btn-block text-white btn-google btn-user" role="button"><i class="fab fa-google"></i>&nbsp; Register with Google</a><a class="btn btn-primary btn-block text-white btn-facebook btn-user" role="button"><i class="fab fa-facebook-f"></i>&nbsp; Register with Facebook</a>
+                                    <div class="col-sm-6 mb-3 mb-sm-0"><input id = "regPassword" class="form-control form-control-user" type="password"  placeholder="Password" ></div>
+                                    <div class="col-sm-6"><input class="form-control form-control-user" type="password"  placeholder="Repeat Password" ></div>
+                                </div>
+                          
+
+                                <a id = "register" class="btn btn-primary btn-block text-white btn-user" type = "submit" role="button">
+                                    &nbsp; Register Account
+                                
+                                </a>
+                                <hr>
+
+                                <a id = "googleReg" class="btn btn-primary btn-block text-white btn-google btn-user" role="button">
+                                    <i class="fab fa-google"></i>&nbsp; Register with Google
+                                
+                                </a>
                                 <hr>
                             </form>
                             <div class="text-center"><a class="small" href="forgot-password.html">Forgot Password?</a></div>
@@ -92,8 +103,8 @@
     measurementId: "G-LN6QHQZGNY"
   };</script>
  -->
-<script src="app.js"></script>
-<script src="index.js"></script>
+ <script src="app.js"></script>
+ <script src="login.js"></script>
 </body>
 
 </html>

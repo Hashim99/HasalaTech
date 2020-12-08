@@ -1,14 +1,9 @@
-const auth = firebase.auth()
 
-const provider = new firebase.auth.GoogleAuthProvider();
 var currentBalance = 0;
-$("#logout").click(function () {
 
-    console.log("bruh")
-    auth.signOut()
-    window.location.href = "/"
-
-});
+var fName = ""
+var lName = "" 
+var regPassword = ""
 
 const db = firebase.firestore();
 
@@ -18,6 +13,18 @@ auth.onAuthStateChanged(user => {
     if (user) {
         //signed in
         $("#userDisplayName").html("Hello, " + user.displayName)
+
+        // "loggedInUser" to deffrentiate between firebase user and our user
+        loggedInUser = db.collection("users").doc("User: "+user.uid)
+
+
+
+        loggedInUser.set({
+
+            email: user.email,
+            name: user.displayName,
+            users: [user.uid]
+        })
 
         wallet = db.collection("wallets").doc(user.uid + "'s Wallet")
 
@@ -63,3 +70,12 @@ auth.onAuthStateChanged(user => {
 
 
 
+
+
+$("#logout").click(function(){
+ 
+    console.log("bruh")
+    auth.signOut()
+    window.location.href = "/"
+   
+    });
