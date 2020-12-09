@@ -1,6 +1,4 @@
-
 var currentBalance = 0;
-
 var fName = ""
 var lName = "" 
 var regPassword = ""
@@ -15,18 +13,18 @@ auth.onAuthStateChanged(user => {
         $("#userDisplayName").html("Hello, " + user.displayName)
 
         // "loggedInUser" to deffrentiate between firebase user and our user
-        loggedInUser = db.collection("users").doc("User: "+user.uid)
-
+        loggedInUser = db.collection("users").doc(user.uid)
+        wallet = db.collection("wallets").doc(user.uid + "'s Wallet")
 
 
         loggedInUser.set({
 
             email: user.email,
             name: user.displayName,
-            users: [user.uid]
+            wallets: [wallet.id]
         })
 
-        wallet = db.collection("wallets").doc(user.uid + "'s Wallet")
+ 
 
         wallet.get().then(function (doc) {
             if (doc.exists) {
@@ -46,7 +44,7 @@ auth.onAuthStateChanged(user => {
 
         $("#saveBalance").click(function () {
 
-            currentBalance = parseInt($("#balanceInput").val(), 10) + currentBalance
+            currentBalance = parseFloat($("#balanceInput").val()) + currentBalance
             console.log(currentBalance)
             wallet.set({
 
