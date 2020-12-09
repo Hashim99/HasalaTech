@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Profile - Brand</title>
+    <title>Profile - HasalaTech</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
     <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
@@ -25,7 +25,7 @@
             <div class="container-fluid d-flex flex-column p-0">
                 <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="index.html">
                     <div class="sidebar-brand-icon rotate-n-15"><img src="assets/img/logo.svg" style="width: 71px;height: 39px;"></div>
-                    <div class="sidebar-brand-text mx-3"><span>My Budget</span></div>
+                    <div class="sidebar-brand-text mx-3"><span>HasalaTech</span></div>
                 </a>
                 <hr class="sidebar-divider my-0">
                 <ul class="nav navbar-nav text-light" id="accordionSidebar">
@@ -52,8 +52,18 @@
                     <div class="row mb-3">
                         <div class="col-lg-4">
                             <div class="card mb-3">
-                                <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4" src="assets/img/avatars/هع.jpg" width="160" height="160">
-                                    <div class="mb-3"><button class="btn btn-primary btn-sm" type="button">Change Photo</button></div>
+                                <div id = "previewPhoto" class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4" src="assets/img/avatars/هع.jpg" width="160" height="160">
+                                    <div class="mb-3">
+
+                                        <form >
+
+                                            <input type="file" name="fileToUpload" id="fileToUpload">
+                                            <button id = "changePhoto" class="btn btn-primary btn-sm" type="button">Change Photo</button>
+                                        </form>
+                                       
+                                     
+                                    
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -97,19 +107,17 @@
                                         <div class="card-body">
                                             <form>
                                                 <div class="form-row">
+                                                    
                                                     <div class="col">
-                                                        <div class="form-group"><label for="username"><strong>Username</strong></label><input class="form-control" type="text" placeholder="user.name" name="username"></div>
-                                                    </div>
-                                                    <div class="col">
-                                                        <div class="form-group"><label for="email"><strong>Email Address</strong></label><input class="form-control" type="email" placeholder="user@example.com" name="email"></div>
+                                                        <div class="form-group"><label for="email"><strong>Email Address</strong></label><input id = "email" class="form-control" type="email" placeholder="user@example.com" ></div>
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="col">
-                                                        <div class="form-group"><label for="first_name"><strong>First Name</strong></label><input class="form-control" type="text" placeholder="John" name="first_name"></div>
+                                                        <div class="form-group"><label for="first_name"><strong>First Name</strong></label><input id = "fName" class="form-control" type="text" placeholder="John" ></div>
                                                     </div>
                                                     <div class="col">
-                                                        <div class="form-group"><label for="last_name"><strong>Last Name</strong></label><input class="form-control" type="text" placeholder="Doe" name="last_name"></div>
+                                                        <div class="form-group"><label for="last_name"><strong>Last Name</strong></label><input id = "lName" class="form-control" type="text" placeholder="Doe" ></div>
                                                     </div>
                                                 </div>
                                                 <div class="form-group"><button id = "saveSettings" class="btn btn-primary btn-sm" type="submit">Save Settings</button></div>
