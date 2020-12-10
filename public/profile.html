@@ -4,7 +4,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+<<<<<<< HEAD
     <title>Profile - HasalaTech</title>
+=======
+    <title>Profile - Brand</title>
+>>>>>>> f9a89aa... First Commit
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
     <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
@@ -25,11 +29,19 @@
             <div class="container-fluid d-flex flex-column p-0">
                 <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="index.html">
                     <div class="sidebar-brand-icon rotate-n-15"><img src="assets/img/logo.svg" style="width: 71px;height: 39px;"></div>
+<<<<<<< HEAD
                     <div class="sidebar-brand-text mx-3"><span>HasalaTech</span></div>
                 </a>
                 <hr class="sidebar-divider my-0">
                 <ul class="nav navbar-nav text-light" id="accordionSidebar">
-                    <li class="nav-item dropdown no-arrow"><a class="nav-link active" href="profile.html"><img id = "avatar" class="border rounded-circle img-profile" src="assets/img/avatars/هع.jpg" style="height: 50px;width: 50px;"><span id = "userDisplayName" class="link-title" style="margin-left: 8px;">Hello, User</span></a></li>
+                    <li class="nav-item dropdown no-arrow"><a class="nav-link active" href="profile.html"><img id = "avatar" class="border rounded-circle img-profile" src="assets/img/user-alt-512.webp"   style="height: 50px;width: 50px;"><span id = "userDisplayName" class="link-title" style="margin-left: 8px;">Hello, User</span></a></li>
+=======
+                    <div class="sidebar-brand-text mx-3"><span>My Budget</span></div>
+                </a>
+                <hr class="sidebar-divider my-0">
+                <ul class="nav navbar-nav text-light" id="accordionSidebar">
+                    <li class="nav-item dropdown no-arrow"><a class="nav-link active" href="profile.html"><img class="border rounded-circle img-profile" src="assets/img/avatars/هع.jpg" style="height: 50px;width: 50px;"><span class="link-title" style="margin-left: 8px;">Hello, User</span></a></li>
+>>>>>>> f9a89aa... First Commit
                     <li
                         class="nav-item"><a class="nav-link" href="dashboard.html"><i class="fas fa-tachometer-alt"></i><span class="link-title">Dashboard</span></a></li>
                         <li class="nav-item"><a class="nav-link" href="income.html"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cash-stack" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -38,8 +50,13 @@
   <path d="M13 5a2 2 0 0 0 2 2V5h-2zM3 5a2 2 0 0 1-2 2V5h2zm10 8a2 2 0 0 1 2-2v2h-2zM3 13a2 2 0 0 0-2-2v2h2zm7-4a2 2 0 1 1-4 0 2 2 0 0 1 4 0z"/>
 </svg><span style="margin-left: 3px;">Income</span></a></li>
                         <li class="nav-item"><a class="nav-link active" href="profile.html"><i class="fas fa-user"></i><span>Profile</span></a></li>
+<<<<<<< HEAD
                         <li class="nav-item" style="margin-bottom: 0px;margin-top: 149px;"><a id = "logout" class="nav-link" ><i class="fa fa-sign-out" aria-hidden="true"></i>
 <span class="link-title">Logout</span></a></li> 
+=======
+                        <li class="nav-item" style="margin-bottom: 0px;margin-top: 149px;"><a class="nav-link" href="dashboard.html"><i class="fa fa-sign-out" aria-hidden="true"></i>
+<span class="link-title">Logout</span></a></li>
+>>>>>>> f9a89aa... First Commit
                 </ul>
             </div>
         </nav>
@@ -52,12 +69,12 @@
                     <div class="row mb-3">
                         <div class="col-lg-4">
                             <div class="card mb-3">
-                                <div id = "previewPhoto" class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4" src="assets/img/avatars/هع.jpg" width="160" height="160">
+                                <div class="card-body text-center shadow"><img id = "previewPhoto" class="rounded-circle mb-3 mt-4" src="assets/img/user-alt-512.webp" width="160" height="160">
                                     <div class="mb-3">
 
                                         <form >
 
-                                            <input type="file" name="fileToUpload" id="fileToUpload">
+                                            <input  type="file" name="fileToUpload" id="uploadImage" onchange = 'chooseFile(event)' >
                                             <button id = "changePhoto" class="btn btn-primary btn-sm" type="button">Change Photo</button>
                                         </form>
                                        
@@ -114,12 +131,15 @@
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="col">
-                                                        <div class="form-group"><label for="first_name"><strong>Name</strong></label><input id = "name" class="form-control" type="text" placeholder="John" ></div>
+                                                        <div class="form-group"><label for="first_name"><strong>Name</strong></label>
+                                                            <input id = "name" class="form-control" type="text" placeholder="John" >
+                                                        </div>
                                                     </div>
                                                    
                                                 </div>
-                                                <div class="form-group"><button id = "saveSettings" class="btn btn-primary btn-sm" type="submit">Save Settings</button></div>
+                                                
                                             </form>
+                                            <div class="form-group"><button id = "saveSettings" class="btn btn-primary btn-sm" >Save Settings</button></div>
                                         </div>
                                     </div>
                                 </div>
@@ -130,7 +150,7 @@
             </div>
             <footer class="bg-white sticky-footer">
                 <div class="container my-auto">
-                    <div class="text-center my-auto copyright"><span>Copyright © MyBudget 2020</span></div>
+                    <div class="text-center my-auto copyright"><span>Copyright © HasalaTech 2020</span></div>
                 </div>
             </footer>
         </div>
@@ -152,6 +172,7 @@
 <script src="/__/firebase/8.1.1/firebase-analytics.js"></script>
 <script src="/__/firebase/8.1.1/firebase-auth.js"></script>
 <script src="/__/firebase/8.1.1/firebase-firestore.js"></script>
+<script src="/__/firebase/8.1.1/firebase-storage.js"></script>
 <!-- Initialize Firebase -->
 <script src="/__/firebase/init.js"></script>
 

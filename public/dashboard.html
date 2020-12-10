@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Dashboard - HasalaTech</title>
+    <title>Dashboard - Brand</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
     <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
@@ -27,7 +27,7 @@
                     <h4 class="modal-title">Wallet Name</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                 <div class="modal-body">
                     <form>
-                        <div class="form-group"><label>Edit Name</label><input class="form-control" type="text"><label>Edit Amount (SAR)</label><input class="form-control" type="number"></div>
+                        <div class="form-group"><label>Edit Name</label><input class="form-control" type="text"><label>Edit Amount (SR)</label><input class="form-control" type="number"></div>
                     </form>
                 </div>
                 <div class="modal-footer"><button class="btn btn-primary" type="button">Save</button><button class="btn btn-danger" type="button">Delete Wallet</button></div>
@@ -41,7 +41,7 @@
                     <h4 class="modal-title">Bill Name</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                 <div class="modal-body">
                     <form>
-                        <div class="form-group"><label>Edit Name</label><input class="form-control" type="text"><label>Edit Amount (SAR)</label><input class="form-control" type="number"><label>Edit Due Date</label><input class="form-control" type="date"></div>
+                        <div class="form-group"><label>Edit Name</label><input class="form-control" type="text"><label>Edit Amount (SR)</label><input class="form-control" type="number"><label>Edit Due Date</label><input class="form-control" type="date"></div>
                     </form>
                 </div>
                 <div class="modal-footer"><button class="btn btn-primary" type="button">Save</button><button class="btn btn-danger" type="button">Delete Bill</button></div>
@@ -97,14 +97,14 @@
                     <h4 class="modal-title">Add Spendings</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                 <div class="modal-body">
                     <form>
-                        <div class="form-group"><label>Amount (SAR)</label><input class="form-control" type="number">
+                        <div class="form-group"><label>Amount (SAR)</label><input id="spendingInput" class="form-control" type="number">
                             <div class="dropdown" style="margin-top: 14px;"><button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false" type="button">Category&nbsp;</button>
                                 <div class="dropdown-menu"><a class="dropdown-item" href="#">First Item</a><a class="dropdown-item" href="#">Second Item</a><a class="dropdown-item" href="#">Third Item</a></div>
                             </div>
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Save</button></div>
+                <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Close</button><button id="saveSpending" class="btn btn-primary" type="button">Save</button></div>
             </div>
         </div>
     </div>
@@ -141,11 +141,11 @@
             <div class="container-fluid d-flex flex-column p-0">
                 <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="index.html">
                     <div class="sidebar-brand-icon rotate-n-15"><img src="assets/img/logo.svg" style="width: 71px;height: 39px;"></div>
-                    <div class="sidebar-brand-text mx-3"><span>HasalaTech</span></div>
+                    <div class="sidebar-brand-text mx-3"><span>My Budget</span></div>
                 </a>
                 <hr class="sidebar-divider my-0">
                 <ul class="nav navbar-nav text-light" id="accordionSidebar">
-                    <li id = "username" class="nav-item dropdown no-arrow"><a class="nav-link" href="profile.html"><img class="border rounded-circle img-profile" src="assets/img/avatars/هع.jpg" style="height: 50px;width: 50px;"><span id = "userDisplayName" class="link-title" style="margin-left: 8px;">Hello, User</span></a></li>
+                    <li id = "username" class="nav-item dropdown no-arrow"><a class="nav-link" href="profile.html"><img id = "avatar" class="border rounded-circle img-profile" src="assets/img/avatars/هع.jpg" style="height: 50px;width: 50px;"><span id = "userDisplayName" class="link-title" style="margin-left: 8px;">Hello, User</span></a></li>
                     <li class="nav-item"><a class="nav-link active" href="dashboard.html"><i class="fas fa-tachometer-alt"></i><span class="link-title">Dashboard</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="income.html"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cash-stack" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   <path d="M14 3H1a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1h-1z"/>
@@ -171,7 +171,7 @@
                                     <div class="row align-items-center no-gutters">
                                         <div class="col mr-2">
                                             <div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span>Balance</span></div>
-                                            <div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span id = "balanceDisplay" style="font-size: 20px;">0 SAR</span></div>
+                                            <div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span id = "balanceDisplay" style="font-size: 20px;">0 SR</span></div>
                                         </div>
                                         <div class="col-auto"><button id = "balance-modal-button" type="button" class="btn btn-outline-primary">
           <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -189,7 +189,7 @@
                                     <div class="row align-items-center no-gutters">
                                         <div class="col mr-2">
                                             <div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span>Today's spendings</span></div>
-                                            <div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span style="font-size: 20px;">120 SR&nbsp;</span>
+                                            <div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span id="spendingDisplay" style="font-size: 20px;">0 SR&nbsp;</span>
                                                 <p class="text-success">(-30) from yesterday</p>
                                             </div>
                                         </div>
@@ -209,7 +209,7 @@
                                     <div class="row align-items-center no-gutters">
                                         <div class="col mr-2">
                                             <div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span>Daily spending avg.</span></div>
-                                            <div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span style="font-size: 20px;">320 SR</span></div>
+                                            <div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span id="spendingAvgDisplay" style="font-size: 20px;">0 SR</span></div>
                                         </div>
                                     </div>
                                 </div>
@@ -362,7 +362,11 @@
     <script src="/__/firebase/8.1.1/firebase-analytics.js"></script>
     <script src="/__/firebase/8.1.1/firebase-auth.js"></script>
     <script src="/__/firebase/8.1.1/firebase-firestore.js"></script>
+<<<<<<< HEAD
+    <script src="/__/firebase/8.1.1/firebase-storage.js"></script>
+=======
     
+>>>>>>> f9a89aa... First Commit
     <!-- Initialize Firebase -->
     <script src="/__/firebase/init.js"></script>
     
@@ -386,7 +390,11 @@
     
     <script src="app.js"></script>
     <script src="index.js"></script>
+<<<<<<< HEAD
    
+=======
+
+>>>>>>> f9a89aa... First Commit
 </body>
 
 </html>
