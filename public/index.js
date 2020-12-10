@@ -75,7 +75,7 @@ auth.onAuthStateChanged(user => {
         })
 
 
-
+        //if you see this comment, then you are clearly not blind
         $("#saveBalance").click(function () {
 
             currentBalance = parseFloat($("#balanceInput").val()) + currentBalance
