@@ -34,12 +34,35 @@ $("#bill-modal-button").click(function(){
 });
 
 
-$("#walletLink").click(function(){
+$("#wallet1").click(function(){
     $("#walletModal").modal("show");
 
 });
 
-$("#billLink").click(function(){
+$("#wallet2").click(function(){
+    $("#walletModal").modal("show");
+
+});
+
+$("#wallet3").click(function(){
+    $("#walletModal").modal("show");
+
+});
+
+
+
+
+$("#bill1").click(function(){
+    $("#billModal").modal("show");
+
+});
+
+$("#bill2").click(function(){
+    $("#billModal").modal("show");
+
+});
+
+$("#bill3").click(function(){
     $("#billModal").modal("show");
 
 });
