@@ -4,6 +4,11 @@ avgSpendings = 0
 var fName = ""
 var lName = "" 
 var regPassword = ""
+
+var firstWalletId=0
+var secondWalletId=0
+var thirdWalletId=0
+
 const db = firebase.firestore();
 
 var storage = firebase.storage();
@@ -24,6 +29,8 @@ auth.onAuthStateChanged(user => {
         //signed in
         $("#userDisplayName").html("Hello, " + user.displayName)
 
+        
+        
         // "loggedInUser" to deffrentiate between firebase user and our user
         loggedInUser = db.collection("users").doc(user.uid)
         
@@ -35,7 +42,7 @@ auth.onAuthStateChanged(user => {
                 currentBalance = doc.data().balance
                 $("#balanceDisplay").html(currentBalance + " SR")
                 var count = 0
-                for(i = 0; i < doc.data().spendings.length; i++){
+                for(let i = 0; i < doc.data().spendings.length; i++){
                     currentSpendings += doc.data().spendings[i].amount
                     console.log(doc.data().spendings[i].amount);
                     count++
@@ -70,14 +77,14 @@ auth.onAuthStateChanged(user => {
                     console.log("Uh Oh, we made a fucky wucky")
                 })
 
+                /*
                 //create a new user
                 loggedInUser.set({
-                    email: user.email,
                     name: user.displayName,
-                    profilepic: "www.google.com",
+                    email: user.email,
                     wallets: [wallet.id]
                 })
-
+*/
                 // doc.data() will be undefined in this case
                 $("#balanceDisplay").html(currentBalance + " SR")
                 $("#spendingDisplay").html(currentSpendings + " SR")
@@ -86,12 +93,49 @@ auth.onAuthStateChanged(user => {
             console.log("Error getting document:", error);
         })
 
+        //----------here hasim------------
+
+
+
+        loggedInUser.get().then(function (doc) {
+            if (doc.exists) {
+
+                name = doc.data().name
+                email = doc.data().email
+                avatar = doc.data().profilepic
+
+                $("#userDisplayName").html("Hello, " + name)
+                $("#avatar").attr("src", avatar);
+                $("#previewPhoto").attr("src", avatar)
+                $("#name").val(name)
+                $("#email").val(email)
+
+            } else {
+
+                loggedInUser.set({
+                    name: user.displayName,
+                    email: user.email,
+                    wallets: [wallet.id]
+                })
+
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+            }
+        }).catch(function (error) {
+            console.log("Error getting document:", error);
+        })
+
+
+
+
+        //----------stop here hasim------------
+
         loggedInUser.get().then(function (doc) {
             //for displaying the last 3 added wallets
             let length = doc.data().wallets.length
             let walletId = ""
             let wallet = ""
-            for(i = 0; i < length; i++){
+            for(let i = 0; i < length; i++){
                 switch (i) {
                     case 0:
                         walletId = doc.data().wallets[0]
@@ -100,6 +144,7 @@ auth.onAuthStateChanged(user => {
                             $("#firstWalletName").html(doc.data().name)
                             $("#firstWalletBalance").html(doc.data().balance)
                         })
+                        firstWalletId = walletId
                         break;
                     case 1:
                         walletId = doc.data().wallets[1]
@@ -108,6 +153,7 @@ auth.onAuthStateChanged(user => {
                             $("#secondWalletName").html(doc.data().name)
                             $("#secondWalletBalance").html(doc.data().balance)
                         })
+                        secondWalletId=walletId
                         break;
                     case 2:
                         walletId = doc.data().wallets[2]
@@ -116,6 +162,7 @@ auth.onAuthStateChanged(user => {
                             $("#thirdWalletName").html(doc.data().name)
                             $("#thirdWalletBalance").html(doc.data().balance)
                         })
+                        thirdWalletId=walletId
                         break;
                     default:
                         break;
@@ -185,46 +232,42 @@ auth.onAuthStateChanged(user => {
                 })
             })
             //then use that wallet id and update the wallets array
-            
+            console.log(firstWalletId);
+            console.log(secondWalletId);
+            console.log(thirdWalletId);
             setTimeout(function () { window.location.reload() }, 5000);
         })
 
         //display current month
         const month = new Date();
         const monthLabel = month.toLocaleString('default', { month: 'long' })
-
         $("#month-label").html(monthLabel);
     
     
-    //change photo
-    $("#changePhoto").click(function () {
+        //change profile pic
+        $("#changePhoto").click(function () {
 
-        console.log(file)
-        var uploadAvatar = storageRef.child(user.uid + "'s profile pic").put(file)
+            console.log(file)
+            var uploadAvatar = storageRef.child(user.uid + "'s profile pic").put(file)
 
-        storageRef.child(user.uid + "'s profile pic").getDownloadURL().then(imgUrl => {
+            storageRef.child(user.uid + "'s profile pic").getDownloadURL().then(imgUrl => {
 
-            $("#previewPhoto").attr("src", imgUrl)
-            console.log(imgUrl)
-            loggedInUser.update({
+                $("#previewPhoto").attr("src", imgUrl)
+                console.log(imgUrl)
+                loggedInUser.update({
 
-                profilepic: imgUrl
+                    profilepic: imgUrl
 
+                })
             })
+        });
 
-        })
-
-
-    });
-
-    
-    
-    
+        //query for all spendings within a month
+        // var monthSpendings = []
+        // wallet.get().then(function (doc) {
+        //     doc.data()
+        // })
     }
-
-
-
-    
     else {
         $("#userDisplayName").html("Hello, User")
         console.log("out")
