@@ -6,7 +6,16 @@ var lName = ""
 var regPassword = ""
 const db = firebase.firestore();
 
+var storage = firebase.storage();
 
+var storageRef = storage.ref();
+
+
+let file = {}
+
+function chooseFile(event) {
+    file = event.target.files[0]
+}
 
 auth.onAuthStateChanged(user => {
 
@@ -179,12 +188,51 @@ auth.onAuthStateChanged(user => {
             
             setTimeout(function () { window.location.reload() }, 5000);
         })
+
+        //display current month
+        const month = new Date();
+        const monthLabel = month.toLocaleString('default', { month: 'long' })
+
+        $("#month-label").html(monthLabel);
+    
+    
+    //change photo
+    $("#changePhoto").click(function () {
+
+        console.log(file)
+        var uploadAvatar = storageRef.child(user.uid + "'s profile pic").put(file)
+
+        storageRef.child(user.uid + "'s profile pic").getDownloadURL().then(imgUrl => {
+
+            $("#previewPhoto").attr("src", imgUrl)
+            console.log(imgUrl)
+            loggedInUser.update({
+
+                profilepic: imgUrl
+
+            })
+
+        })
+
+
+    });
+
+    
+    
+    
     }
+
+
+
+    
     else {
         $("#userDisplayName").html("Hello, User")
         console.log("out")
     }
 })
+
+
+
 
 $("#logout").click(function(){
  

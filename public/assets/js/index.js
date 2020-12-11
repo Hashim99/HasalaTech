@@ -34,25 +34,23 @@ $("#bill-modal-button").click(function(){
 });
 
 
-$("#wallet1").click(function(){
+$("#walletLink").click(function(){
     $("#walletModal").modal("show");
 
 });
 
-$("#wallet2").click(function(){
-    $("#walletModal").modal("show");
-
-});
-
-$("#wallet3").click(function(){
+$("#wallet2").click(function () {
     $("#walletModal").modal("show");
 
 });
 
 
+$("#wallet3").click(function () {
+    $("#walletModal").modal("show");
 
+});
 
-$("#bill1").click(function(){
+$("#billLink").click(function(){
     $("#billModal").modal("show");
 
 });
@@ -66,6 +64,8 @@ $("#bill3").click(function(){
     $("#billModal").modal("show");
 
 });
+
+
 
 $("#editIncome").click(function(){
     $("#editIncomeModal").modal("show");

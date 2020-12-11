@@ -145,7 +145,7 @@
                 </a>
                 <hr class="sidebar-divider my-0">
                 <ul class="nav navbar-nav text-light" id="accordionSidebar">
-                    <li id = "username" class="nav-item dropdown no-arrow"><a class="nav-link" href="profile.html"><img id = "avatar" class="border rounded-circle img-profile" src="assets/img/avatars/هع.jpg" style="height: 50px;width: 50px;"><span id = "userDisplayName" class="link-title" style="margin-left: 8px;">Hello, User</span></a></li>
+                    <li id = "username" class="nav-item dropdown no-arrow"><a class="nav-link" href="profile.html"><img id = "avatar" class="border rounded-circle img-profile" src="assets/img/user-alt-512.png" style="height: 50px;width: 50px;"><span id = "userDisplayName" class="link-title" style="margin-left: 8px;">Hello, User</span></a></li>
                     <li class="nav-item"><a class="nav-link active" href="dashboard.html"><i class="fas fa-tachometer-alt"></i><span class="link-title">Dashboard</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="income.html"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cash-stack" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   <path d="M14 3H1a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1h-1z"/>
@@ -220,13 +220,12 @@
                         <div class="col-lg-7 col-xl-8">
                             <div class="card shadow mb-4">
                                 <div class="card-header d-flex justify-content-between align-items-center">
-                                    <h6 class="card-heading"><strong>Month Spendings</strong></h6>
-                                    <div class="dropdown"><button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false" type="button">August&nbsp;</button>
-                                        <div class="dropdown-menu"><a class="dropdown-item" href="#">First Item</a><a class="dropdown-item" href="#">Second Item</a><a class="dropdown-item" href="#">Third Item</a></div>
-                                    </div>
+                                    <h6 class="card-heading"><strong id="month-label"></strong></h6>
+                                    
                                 </div>
                                 <div class="card-body">
-                                    <div class="chart-area"><canvas data-bs-chart="{&quot;type&quot;:&quot;line&quot;,&quot;data&quot;:{&quot;labels&quot;:[&quot;Jan&quot;,&quot;Feb&quot;,&quot;Mar&quot;,&quot;Apr&quot;,&quot;May&quot;,&quot;Jun&quot;,&quot;Jul&quot;,&quot;Aug&quot;],&quot;datasets&quot;:[{&quot;label&quot;:&quot;Earnings&quot;,&quot;fill&quot;:true,&quot;data&quot;:[&quot;0&quot;,&quot;10000&quot;,&quot;5000&quot;,&quot;15000&quot;,&quot;10000&quot;,&quot;20000&quot;,&quot;15000&quot;,&quot;25000&quot;],&quot;backgroundColor&quot;:&quot;rgba(78, 115, 223, 0.05)&quot;,&quot;borderColor&quot;:&quot;rgba(78, 115, 223, 1)&quot;}]},&quot;options&quot;:{&quot;maintainAspectRatio&quot;:false,&quot;legend&quot;:{&quot;display&quot;:false},&quot;title&quot;:{},&quot;scales&quot;:{&quot;xAxes&quot;:[{&quot;gridLines&quot;:{&quot;color&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;zeroLineColor&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;drawBorder&quot;:false,&quot;drawTicks&quot;:false,&quot;borderDash&quot;:[&quot;2&quot;],&quot;zeroLineBorderDash&quot;:[&quot;2&quot;],&quot;drawOnChartArea&quot;:false},&quot;ticks&quot;:{&quot;fontColor&quot;:&quot;#858796&quot;,&quot;padding&quot;:20}}],&quot;yAxes&quot;:[{&quot;gridLines&quot;:{&quot;color&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;zeroLineColor&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;drawBorder&quot;:false,&quot;drawTicks&quot;:false,&quot;borderDash&quot;:[&quot;2&quot;],&quot;zeroLineBorderDash&quot;:[&quot;2&quot;]},&quot;ticks&quot;:{&quot;fontColor&quot;:&quot;#858796&quot;,&quot;padding&quot;:20}}]}}}"></canvas></div>
+                                    <div class="chart-area"><canvas id="lineChart" width="400" height="400"></canvas>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -240,9 +239,8 @@
 </svg>
         </button></div>
                                 <div class="card-body">
-                                    <div class="chart-area"><canvas data-bs-chart="{&quot;type&quot;:&quot;doughnut&quot;,&quot;data&quot;:{&quot;labels&quot;:[&quot;Direct&quot;,&quot;Social&quot;,&quot;Referral&quot;],&quot;datasets&quot;:[{&quot;label&quot;:&quot;&quot;,&quot;backgroundColor&quot;:[&quot;#4e73df&quot;,&quot;#1cc88a&quot;,&quot;#36b9cc&quot;],&quot;borderColor&quot;:[&quot;#ffffff&quot;,&quot;#ffffff&quot;,&quot;#ffffff&quot;],&quot;data&quot;:[&quot;50&quot;,&quot;30&quot;,&quot;15&quot;]}]},&quot;options&quot;:{&quot;maintainAspectRatio&quot;:false,&quot;legend&quot;:{&quot;display&quot;:false},&quot;title&quot;:{}}}"></canvas></div>
-                                    <div
-                                        class="text-center small mt-4"><span class="mr-2"><i class="fas fa-circle text-primary"></i>&nbsp;Direct</span><span class="mr-2"><i class="fas fa-circle text-success"></i>&nbsp;Social</span><span class="mr-2"><i class="fas fa-circle text-info"></i>&nbsp;Refferal</span></div>
+                                    <div class="chart-area"><canvas id="pieChart" width="400" height="400"></canvas></div>
+          
                             </div>
                         </div>
                     </div>
@@ -267,7 +265,7 @@
                                 <li class="list-group-item">
                                     <div class="row align-items-center no-gutters">
                                         <div class="col mr-2">
-                                            <a id="wallet1" class="nav-link active" href="#walletCard" style="margin-left: -15px;">
+                                            <a id="walletLink" class="nav-link active" href="#walletCard" style="margin-left: -15px;">
                                                 <h6 id="firstWalletName" class="mb-0"><strong>---</strong></h6><span id="firstWalletBalance" class="text-xs">---</span></a>
                                         </div>
                                     </div>
@@ -275,7 +273,7 @@
                                 <li class="list-group-item">
                                     <div class="row align-items-center no-gutters">
                                         <div class="col mr-2">
-                                            <a id="wallet2" class="nav-link active"  href="#walletCard" style="margin-left: -15px;">
+                                            <a id="wallet2" href="#walletCard" class="nav-link active" style="margin-left: -15px;">
                                                 <h6 id="secondWalletName" class="mb-0"><strong>---</strong></h6><span id="secondWalletBalance" class="text-xs">---</span></a>
                                         </div>
                                     </div>
@@ -283,7 +281,7 @@
                                 <li class="list-group-item">
                                     <div class="row align-items-center no-gutters">
                                         <div class="col mr-2">
-                                            <a id="wallet3" href="#walletCard"  class="nav-link active"  style="margin-left: -15px;">
+                                            <a id="wallet3" href="#walletCard" class="nav-link active"  style="margin-left: -15px;">
                                                 <h6 id="thirdWalletName" class="mb-0"><strong>---</strong></h6><span id="thirdWalletBalance" class="text-xs">---</span></a>
                                         </div>
                                     </div>
@@ -310,7 +308,7 @@
                                 <li class="list-group-item">
                                     <div class="row align-items-center no-gutters">
                                         <div class="col mr-2">
-                                            <a id="bill1" class="nav-link active" style="margin-left: -15px;" href="#billCard">
+                                            <a id="billLink" class="nav-link active" style="margin-left: -15px;" href="#billCard">
                                                 <h6 class="mb-0"><strong>Netflix Subscription</strong></h6><span class="text-xs">&nbsp;20 SAR due on 10/10/2020</span></a>
                                         </div>
                                     </div>
@@ -326,7 +324,7 @@
                                 <li class="list-group-item">
                                     <div class="row align-items-center no-gutters">
                                         <div class="col mr-2">
-                                            <a class="nav-link active" id="bill3" href="#billCard" style="margin-left: -15px;">
+                                            <a id="bill3" href="#billCard" class="nav-link active"  style="margin-left: -15px;">
                                                 <h6 class="mb-0"><strong>Playstation Plus</strong></h6><span class="text-xs">250 SAR due on 1/1/2021</span></a>
                                         </div>
                                     </div>
