@@ -4,10 +4,7 @@ avgSpendings = 0
 var fName = ""
 var lName = "" 
 var regPassword = ""
-
-
-
-
+let categoryList =[{name:"Food",value:340},{name:"Fuel",value:420},{name:"Shopping",value:490},{name:"Games",value:220}];
 
 const db = firebase.firestore();
 var storage = firebase.storage();
@@ -22,19 +19,18 @@ function chooseFile(event) {
 
 auth.onAuthStateChanged(user => {
 
+    $( document ).ready(function() {
 
     if (user) {
+
         //signed in
-       // $("#userDisplayName").html("Hello, " + user.displayName)
+        $("#userDisplayName").html("Hello, " + user.displayName)
  
         // "loggedInUser" to deffrentiate between firebase user and our user
         loggedInUser = db.collection("users").doc(user.uid)
 
-
-     
-
         wallet = db.collection("wallets").doc(user.uid + "'s Wallet")
-        console.log(wallet)
+        
         wallet.get().then(function (doc) {
             if (doc.exists) {
                 currentBalance = doc.data().balance
@@ -42,7 +38,7 @@ auth.onAuthStateChanged(user => {
                 var count = 0
                 for(let i = 0; i < doc.data().spendings.length; i++){
                     currentSpendings += doc.data().spendings[i].amount
-                    console.log(doc.data().spendings[i].amount);
+                
                     count++
                 }
                 $("#spendingDisplay").html(currentSpendings + " SR")
@@ -55,8 +51,6 @@ auth.onAuthStateChanged(user => {
                 } else {
                     $("#spendingAvgDisplay").html(0 + " SR")
                 }
-
-                
 
             } else {
                 db.collection("wallets").doc(user.uid + "'s Wallet").set({
@@ -72,17 +66,16 @@ auth.onAuthStateChanged(user => {
                 }).then(function(){
                     console.log("Wallet created successfully")
                 }).catch(function(){
-                    console.log("Uh Oh, we made a fucky wucky")
+                       
                 })
-
-                /*
+                
                 //create a new user
                 loggedInUser.set({
                     name: user.displayName,
                     email: user.email,
                     wallets: [wallet.id]
                 })
-*/
+
                 // doc.data() will be undefined in this case
                 $("#balanceDisplay").html(currentBalance + " SR")
                 $("#spendingDisplay").html(currentSpendings + " SR")
@@ -90,11 +83,6 @@ auth.onAuthStateChanged(user => {
         }).catch(function (error) {
             console.log("Error getting document:", error);
         })
-
-        //----------here hasim------------
-
-        let categoryList =[{name:"Food",value:340},{name:"Fuel",value:420},{name:"Shopping",value:490},{name:"Games",value:220}];
-        createPieChart(categoryList);
 
 
         loggedInUser.get().then(function (doc) {
@@ -112,45 +100,19 @@ auth.onAuthStateChanged(user => {
 
             } else {
 
-//if user is not google
-if(user.displayName===null){
-
-    loggedInUser.set({
-        name: user.displayName,
-        email: user.email,
-        wallets: [wallet.id]
-    })
-    
-}
-
-else{
-    //if user is google:
-    loggedInUser.set({
-        name: user.displayName,
-        email: user.email,
-        wallets: [wallet.id]
-    })  
-}
-                //if user is google:
-
                 loggedInUser.set({
                     name: user.displayName,
                     email: user.email,
                     wallets: [wallet.id]
                 })
 
-                
                 // doc.data() will be undefined in this case
                 console.log("No such document!");
             }
         }).catch(function (error) {
             console.log("Error getting document:", error);
         })
-
-
-
-
-        //----------stop here hasim------------
+  
 
         loggedInUser.get().then(function (doc) {
             //for displaying the last 3 added wallets
@@ -192,10 +154,6 @@ else{
             }
         })
 
-        //edit the displayed wallet (either name or balance)
-        
-
-
         //delete the displayed wallet (either name or balance)
         $("#wallet2").click(function (){
             $("#editWalletDelete").click(function (){
@@ -205,7 +163,7 @@ else{
                     wallet.delete().then(function () {
                         console.log("Wallet deleted")
                     }).catch(function (){
-                        console.log("Wallet not deleted, dummy")
+                        console.log("Wallet not deleted")
                     })
                 })
                 loggedInUser.update({
@@ -224,7 +182,7 @@ else{
                     wallet.delete().then(function () {
                         console.log("Wallet deleted")
                     }).catch(function (){
-                        console.log("Wallet not deleted, dummy")
+                        console.log("Wallet not deleted")
                     })
                 })
                 loggedInUser.update({
@@ -244,7 +202,7 @@ else{
             wallet.update({
                 categories: firebase.firestore.FieldValue.arrayUnion(input)
             })
-            // i have to do stupid shit like this because we couldn't use react :\
+           
             setTimeout(function () { window.location.reload() }, 300);
         });
 
@@ -254,7 +212,7 @@ else{
             currentBalance = parseFloat($("#balanceInput").val()) + currentBalance
             console.log(currentBalance)
             wallet.update({balance: currentBalance})
-            // i have to do stupid shit like this because we couldn't use react :\
+     
             setTimeout(function () { window.location.reload() }, 300);
 
         });
@@ -423,25 +381,27 @@ else{
                     monthSpendings.push(doc.data().spendings[i].amount)
                 }
             }
-            createLineChart(monthSpendings)
+          
+                createLineChart(monthSpendings);    
+                createPieChart(categoryList);   
+             
+
             console.log(monthSpendings)
         })
         
 
-        
     }
+    
     else {
         $("#userDisplayName").html("Hello, User")
-        console.log("out")
     }
+});
 })
 
 
 
 
 $("#logout").click(function(){
- 
-    console.log("bruh")
     auth.signOut()
     window.location.href = "/"
    
@@ -458,6 +418,7 @@ function createLineChart(spendings) {
         }
 
         var ctx = document.getElementById("lineChart").getContext("2d");
+     
         var myChart = new Chart(ctx, {
           type: "line",
           data: {
@@ -487,6 +448,8 @@ function createLineChart(spendings) {
             },
           },
         });
+   
+
       }
 
       function createPieChart(categories) {
@@ -500,6 +463,7 @@ function createLineChart(spendings) {
           labels.push(categories[i].name);
           data.push(categories[i].value);
         }
+     
         var ctx = document.getElementById("pieChart").getContext("2d");
         var myChart = new Chart(ctx, {
           type: "doughnut",
@@ -568,4 +532,10 @@ function createLineChart(spendings) {
             },
           },
         });
+    
+   
       }
+
+
+
+   

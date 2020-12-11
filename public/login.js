@@ -8,7 +8,7 @@ var loginPassword = ""
 
 $("#googleLogin").click(function(){
 
-  console.log("clicked")
+
   
  
   auth.signInWithRedirect(provider)
@@ -39,7 +39,7 @@ $("#login").click(function(){
   .then((user) => {
     // Signed in 
     // ...
-    console.log("s")
+
   })
   .catch((error) => {
     var errorCode = error.code;
@@ -59,11 +59,11 @@ $("#register").click(function () {
   
 regEmail = $("#regEmail").val()
 
-console.log(regEmail)
+
 regPassword = $("#regPassword").val()
-console.log(regPassword)
+
 firebase.auth().createUserWithEmailAndPassword(regEmail, regPassword)
-console.log(69420)
+
 .then((user) => {
   // Signed in 
   // ...
@@ -83,13 +83,13 @@ auth.onAuthStateChanged(user =>{
   window.location = "dashboard.html"
  
   $("#userDisplayName").html("Hello, "+user.displayName)
-  console.log(user.displayName)
+
   
   }
   
   else{
     $("#userDisplayName").html("Hello, User")
-    console.log("out")
+   
   }
   })
 
