@@ -5,14 +5,13 @@ var fName = ""
 var lName = "" 
 var regPassword = ""
 
-var firstWalletId=0
-var secondWalletId=0
-var thirdWalletId=0
+
+
+
+
 
 const db = firebase.firestore();
-
 var storage = firebase.storage();
-
 var storageRef = storage.ref();
 
 
@@ -28,12 +27,15 @@ auth.onAuthStateChanged(user => {
     if (user) {
         //signed in
         $("#userDisplayName").html("Hello, " + user.displayName)
-
+ 
+        
         
         
         // "loggedInUser" to deffrentiate between firebase user and our user
         loggedInUser = db.collection("users").doc(user.uid)
-        
+
+
+     
 
         wallet = db.collection("wallets").doc(user.uid + "'s Wallet")
         console.log(wallet)
@@ -204,7 +206,6 @@ auth.onAuthStateChanged(user => {
                 })
             })
             console.log("spendings are updated")
-            console.log(monthSpendings)
             setTimeout(function () { window.location.reload() }, 300);
         })
 
@@ -267,17 +268,22 @@ auth.onAuthStateChanged(user => {
         var monthSpendings = []
         wallet.get().then(function (doc) {
             let length = doc.data().spendings.length
+            console.log("the length is" + length)
             let month = new Date().getMonth() + 1
+            console.log("current month is" + month)
             for (let i = 0; i < length; i++){
                 let dateS = doc.data().spendings[i].date
+                console.log("spending date "+ i + " is " +dateS)
                 let monthS = dateS.split('/')
-                if(monthS[0] === month){
+                console.log("spending month "+ i + " is " +monthS[0])
+                if(monthS[0] == month){
                     monthSpendings.push({
                         amount: doc.data().spendings[i].amount,
                         date: doc.data().spendings[i].date
                     })
                 }
             }
+            console.log(monthSpendings)
         })
 
         
