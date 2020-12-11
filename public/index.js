@@ -4,7 +4,6 @@ avgSpendings = 0
 var fName = ""
 var lName = "" 
 var regPassword = ""
-var walletId = ""
 const db = firebase.firestore();
 
 
@@ -29,6 +28,7 @@ auth.onAuthStateChanged(user => {
                 var count = 0
                 for(i = 0; i < doc.data().spendings.length; i++){
                     currentSpendings += doc.data().spendings[i].amount
+                    console.log(doc.data().spendings[i].amount);
                     count++
                 }
                 $("#spendingDisplay").html(currentSpendings + " SR")
@@ -42,7 +42,7 @@ auth.onAuthStateChanged(user => {
                     $("#spendingAvgDisplay").html(0 + " SR")
                 }
 
-                //an infinite loop is happening and slowing the website, we have to find a solution. (?)
+                
 
             } else {
                 db.collection("wallets").doc(user.uid + "'s Wallet").set({
@@ -77,28 +77,44 @@ auth.onAuthStateChanged(user => {
             console.log("Error getting document:", error);
         })
 
+        //an infinite loop is happening and slowing the website, we have to find a solution. (?)
 
-        // loggedInUser.get().then(function (doc) {
-        //     //for displaying the last 3 added wallets
-        //     for(i = doc.data().wallets.length; i > 0; i++){
-        //         switch (i) {
-        //             case (doc.data().wallets.length - 1):
-        //                 $("#firstWalletName").html(doc.data().wallets[i].name)
-        //                 $("#firstWalletBalance").html(doc.data().wallets[i].balance)
-        //                 break;
-        //             case (doc.data().wallets.length - 2):
-        //                 $("#secondWalletName").html(doc.data().wallets[i].name)
-        //                 $("#secondWalletBalance").html(doc.data().wallets[i].balance)
-        //             break;
-        //             case (doc.data().wallets.length - 3):
-        //                 $("#secondWalletName").html(doc.data().wallets[i].name)
-        //                 $("#secondWalletBalance").html(doc.data().wallets[i].balance)
-        //             break;
-        //             default:
-        //                 break;
-        //         }
-        //     }
-        // })
+        loggedInUser.get().then(function (doc) {
+            //for displaying the last 3 added wallets
+            let length = doc.data().wallets.length
+            let walletId = ""
+            let wallet = ""
+            for(i = 0; i < length; i++){
+                switch (i) {
+                    case 0:
+                        walletId = doc.data().wallets[0]
+                        wallet = db.collection("wallets").doc(walletId)
+                        wallet.get().then(function (doc) {
+                            $("#firstWalletName").html(doc.data().name)
+                            $("#firstWalletBalance").html(doc.data().balance)
+                        })
+                        break;
+                    case 1:
+                        walletId = doc.data().wallets[1]
+                        wallet = db.collection("wallets").doc(walletId)
+                        wallet.get().then(function (doc) {
+                            $("#secondWalletName").html(doc.data().name)
+                            $("#secondWalletBalance").html(doc.data().balance)
+                        })
+                        break;
+                    case 2:
+                        walletId = doc.data().wallets[2]
+                        wallet = db.collection("wallets").doc(walletId)
+                        wallet.get().then(function (doc) {
+                            $("#thirdWalletName").html(doc.data().name)
+                            $("#thirdWalletBalance").html(doc.data().balance)
+                        })
+                        break;
+                    default:
+                        break;
+                }
+            }
+        })
 
         //to update the balance of the wallet
         $("#saveBalance").click(function () {
@@ -149,14 +165,13 @@ auth.onAuthStateChanged(user => {
                 categories: [],
                 spendings: []
             }).then(function (doc) {
-                walletId = doc.id
-                console.log(walletId)
+                loggedInUser.update({
+                    wallets: firebase.firestore.FieldValue.arrayUnion(doc.id + "")
+                })
             })
             //then use that wallet id and update the wallets array
-            loggedInUser.update({
-                wallets: firebase.firestore.FieldValue.arrayUnion(walletId + "")
-            })
-            setTimeout(function () { window.location.reload() }, 300);
+            
+            setTimeout(function () { window.location.reload() }, 5000);
         })
     }
     else {
