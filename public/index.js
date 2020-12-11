@@ -25,7 +25,7 @@ auth.onAuthStateChanged(user => {
 
     if (user) {
         //signed in
-        $("#userDisplayName").html("Hello, " + user.displayName)
+       // $("#userDisplayName").html("Hello, " + user.displayName)
  
         // "loggedInUser" to deffrentiate between firebase user and our user
         loggedInUser = db.collection("users").doc(user.uid)
@@ -93,6 +93,8 @@ auth.onAuthStateChanged(user => {
 
         //----------here hasim------------
 
+        let categoryList =[{name:"Food",value:340},{name:"Fuel",value:420},{name:"Shopping",value:490},{name:"Games",value:220}];
+        createPieChart(categoryList);
 
 
         loggedInUser.get().then(function (doc) {
@@ -110,12 +112,34 @@ auth.onAuthStateChanged(user => {
 
             } else {
 
+//if user is not google
+if(user.displayName===null){
+
+    loggedInUser.set({
+        name: user.displayName,
+        email: user.email,
+        wallets: [wallet.id]
+    })
+    
+}
+
+else{
+    //if user is google:
+    loggedInUser.set({
+        name: user.displayName,
+        email: user.email,
+        wallets: [wallet.id]
+    })  
+}
+                //if user is google:
+
                 loggedInUser.set({
                     name: user.displayName,
                     email: user.email,
                     wallets: [wallet.id]
                 })
 
+                
                 // doc.data() will be undefined in this case
                 console.log("No such document!");
             }
@@ -178,17 +202,18 @@ auth.onAuthStateChanged(user => {
                 loggedInUser.get().then(function (doc) {
                     let walletId = doc.data().wallets[1]
                     let wallet = db.collection("wallets").doc(walletId)
-                    doc.update({
-                        wallets: firebase.firestore.FieldValue.arrayRemove(walletId)
-                    })
                     wallet.delete().then(function () {
                         console.log("Wallet deleted")
                     }).catch(function (){
                         console.log("Wallet not deleted, dummy")
                     })
                 })
-                setTimeout(function () { window.location.reload() }, 300);
+                loggedInUser.update({
+                    wallets: firebase.firestore.FieldValue.arrayRemove(walletId)
+                })
+                setTimeout(function () { window.location.reload() }, 3000);
             })
+            setTimeout(function () { window.location.reload() }, 3000);
         })
 
         $("#wallet3").click(function (){
@@ -196,17 +221,18 @@ auth.onAuthStateChanged(user => {
                 loggedInUser.get().then(function (doc) {
                     let walletId = doc.data().wallets[2]
                     let wallet = db.collection("wallets").doc(walletId)
-                    doc.update({
-                        wallets: firebase.firestore.FieldValue.arrayRemove(walletId)
-                    })
                     wallet.delete().then(function () {
                         console.log("Wallet deleted")
                     }).catch(function (){
                         console.log("Wallet not deleted, dummy")
                     })
                 })
-                setTimeout(function () { window.location.reload() }, 300);
+                loggedInUser.update({
+                    wallets: firebase.firestore.FieldValue.arrayRemove(walletId)
+                })
+                setTimeout(function () { window.location.reload() }, 3000);
             })
+            setTimeout(function () { window.location.reload() }, 3000);
         })
 
 
@@ -289,42 +315,31 @@ auth.onAuthStateChanged(user => {
                 })
             })
             //then use that wallet id and update the wallets array
-            setTimeout(function () { window.location.reload() }, 5000);
+            setTimeout(function () { window.location.reload() }, 300);
         })
 
 
 
         //display income
 
-        // wallet.get().then(function (doc) {
-        //     //for displaying the last 3 added wallets
-        //     let length = doc.data().income.length
-        //     let incomeId = ""
-        //     let income = ""
-        //     for(let i = 0; i < length; i++){
-        //         switch (i) {
-        //             case 0:
-        //                 incomeId = doc.data().income[0]
-        //                 income = db.collection("wallets").doc(incomeId)
-        //                 income.get().then(function (doc) {
-        //                     $("#payday1").html(doc.data().payday)
-        //                     $("#incomeAmount1").html(doc.data().amount)
-        //                 })
-                       
-        //                 break;
-        //             case 1:
-        //                 incomeId = doc.data().income[1]
-        //                 income = db.collection("wallets").doc(incomeId)
-        //                 income.get().then(function (doc) {
-        //                     $("#payday2").html(doc.data().payday)
-        //                     $("#incomeAmount2").html(doc.data().amount)
-        //                 })
-        //                 break;
-        //             default:
-        //                 break;
-        //         }
-        //     }
-        // })
+        wallet.get().then(function (doc) {
+            //for displaying 2 added income
+            let length = doc.data().income.length
+            for(let i = 0; i < length; i++){
+                switch (i) {
+                    case 0:
+                        $("#payday1").html(doc.data().income[0].payday)
+                        $("#incomeAmount1").html(doc.data().income[0].amount)
+                        break;
+                    case 1:
+                        $("#payday2").html(doc.data().income[1].payday)
+                        $("#incomeAmount2").html(doc.data().income[1].amount)
+                        break;
+                    default:
+                        break;
+                }
+            }
+        })
 
 
         //display current month
@@ -373,27 +388,27 @@ auth.onAuthStateChanged(user => {
 
       
          //save income
-        $("#saveIncome").click(function () {
-            var incomeSource = $("#incomeSourceInput").val()
-            var payday = $("#paydayInput").val()
-            var incomeAmount = parseFloat($("#incomeAmountInput").val())
-          
-            wallet.update({
-                
-                income: firebase.firestore.FieldValue.arrayUnion({
-                    amount: incomeAmount,
-                    payday: payday,
-                    source: incomeSource
-                })
-            })
-           console.log("income is updated")
+         $("#saveIncome").click(function () {
+            console.log("e")
+         var incomeSource = $("#incomeSourceInput").val()
+         var payday = $("#paydayInput").val()
+         var incomeAmount = parseFloat($("#incomeAmountInput").val())
 
-           setTimeout(function () { window.location.reload() }, 300);
+         wallet.update({
+
+             income: firebase.firestore.FieldValue.arrayUnion({
+                 amount: incomeAmount,
+                 payday: payday,
+                 source: incomeSource
+             })
+         })
+        console.log("income is updated")
+
+        setTimeout(function () { window.location.reload() }, 300);
         });
 
         //query for all spendings within a month
         var monthSpendings = []
-        var monthCategories = []
         wallet.get().then(function (doc) {
             let length = doc.data().spendings.length
             console.log("the length is" + length)
@@ -406,7 +421,6 @@ auth.onAuthStateChanged(user => {
                 console.log("spending month "+ i + " is " +monthS[0])
                 if(monthS[0] == month){
                     monthSpendings.push(doc.data().spendings[i].amount)
-                    monthCategories.push(doc.data().spendings[i].amount)
                 }
             }
             createLineChart(monthSpendings)
@@ -454,6 +468,87 @@ function createLineChart(spendings) {
                 data: values,
                 backgroundColor: ["rgba(54, 162, 235, 0.2)"],
                 borderColor: ["rgba(54, 162, 235, 1)"],
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: { position: "right" },
+            scales: {
+              yAxes: [
+                {
+                  ticks: {
+                    beginAtZero: true,
+                  },
+                },
+              ],
+            },
+          },
+        });
+      }
+
+      function createPieChart(categories) {
+        let labels = [];
+        let data = [];
+
+
+        
+
+        for (var i = 0; i < categories.length; i++) {
+          labels.push(categories[i].name);
+          data.push(categories[i].value);
+        }
+        var ctx = document.getElementById("pieChart").getContext("2d");
+        var myChart = new Chart(ctx, {
+          type: "doughnut",
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: "# of Votes",
+                data: data,
+                backgroundColor: [
+                  "rgba(255, 99, 132, 0.2)",
+                  "rgba(54, 162, 235, 0.2)",
+                  "rgba(255, 206, 86, 0.2)",
+                  "rgba(75, 192, 192, 0.2)",
+                  "rgba(153, 102, 255, 0.2)",
+                  "rgba(255, 159, 64, 0.2)",
+                  "rgba(255, 99, 132, 0.2)",
+                  "rgba(54, 162, 235, 0.2)",
+                  "rgba(255, 206, 86, 0.2)",
+                  "rgba(75, 192, 192, 0.2)",
+                  "rgba(153, 102, 255, 0.2)",
+                  "rgba(255, 159, 64, 0.2)",
+                  "rgba(255, 99, 132, 0.2)",
+                  "rgba(54, 162, 235, 0.2)",
+                  "rgba(255, 206, 86, 0.2)",
+                  "rgba(75, 192, 192, 0.2)",
+                  "rgba(153, 102, 255, 0.2)",
+                  "rgba(255, 159, 64, 0.2)",
+                ],
+                borderColor: [
+                  "rgba(255, 99, 132, 1)",
+                  "rgba(54, 162, 235, 1)",
+                  "rgba(255, 206, 86, 1)",
+                  "rgba(75, 192, 192, 1)",
+                  "rgba(153, 102, 255, 1)",
+                  "rgba(255, 159, 64, 1)",
+                  "rgba(255, 99, 132, 1)",
+                  "rgba(54, 162, 235, 1)",
+                  "rgba(255, 206, 86, 1)",
+                  "rgba(75, 192, 192, 1)",
+                  "rgba(153, 102, 255, 1)",
+                  "rgba(255, 159, 64, 1)",
+                  "rgba(255, 99, 132, 1)",
+                  "rgba(54, 162, 235, 1)",
+                  "rgba(255, 206, 86, 1)",
+                  "rgba(75, 192, 192, 1)",
+                  "rgba(153, 102, 255, 1)",
+                  "rgba(255, 159, 64, 1)",
+                ],
                 borderWidth: 1,
               },
             ],

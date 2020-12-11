@@ -16,7 +16,7 @@ $("#googleLogin").click(function(){
 
 });
 
-// اضحك عليه يا عمي نفس الشي
+
 $("#googleReg").click(function(){
   
   
