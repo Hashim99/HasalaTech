@@ -5,14 +5,12 @@ var fName = ""
 var lName = "" 
 var regPassword = ""
 
-var firstWalletId=0
-var secondWalletId=0
-var thirdWalletId=0
+
+
+
 
 const db = firebase.firestore();
-
 var storage = firebase.storage();
-
 var storageRef = storage.ref();
 
 
@@ -28,12 +26,12 @@ auth.onAuthStateChanged(user => {
     if (user) {
         //signed in
         $("#userDisplayName").html("Hello, " + user.displayName)
-
-        
-        
+ 
         // "loggedInUser" to deffrentiate between firebase user and our user
         loggedInUser = db.collection("users").doc(user.uid)
-        
+
+
+     
 
         wallet = db.collection("wallets").doc(user.uid + "'s Wallet")
         console.log(wallet)
@@ -69,7 +67,7 @@ auth.onAuthStateChanged(user => {
                     ],
                     bills: [],
                     income: [],
-                    categories: [],
+                    categories: ["Default"],
                     spendings: []
                 }).then(function(){
                     console.log("Wallet created successfully")
@@ -175,8 +173,54 @@ auth.onAuthStateChanged(user => {
 
 
         //delete the displayed wallet (either name or balance)
+        $("#wallet2").click(function (){
+            $("#editWalletDelete").click(function (){
+                loggedInUser.get().then(function (doc) {
+                    let walletId = doc.data().wallets[1]
+                    let wallet = db.collection("wallets").doc(walletId)
+                    doc.update({
+                        wallets: firebase.firestore.FieldValue.arrayRemove(walletId)
+                    })
+                    wallet.delete().then(function () {
+                        console.log("Wallet deleted")
+                    }).catch(function (){
+                        console.log("Wallet not deleted, dummy")
+                    })
+                })
+                setTimeout(function () { window.location.reload() }, 300);
+            })
+        })
+
+        $("#wallet3").click(function (){
+            $("#editWalletDelete").click(function (){
+                loggedInUser.get().then(function (doc) {
+                    let walletId = doc.data().wallets[2]
+                    let wallet = db.collection("wallets").doc(walletId)
+                    doc.update({
+                        wallets: firebase.firestore.FieldValue.arrayRemove(walletId)
+                    })
+                    wallet.delete().then(function () {
+                        console.log("Wallet deleted")
+                    }).catch(function (){
+                        console.log("Wallet not deleted, dummy")
+                    })
+                })
+                setTimeout(function () { window.location.reload() }, 300);
+            })
+        })
 
 
+        //create category
+        $("#saveCategory").click(function () {
+
+            let input = $("#categoryInput").val()
+            console.log(input)
+            wallet.update({
+                categories: firebase.firestore.FieldValue.arrayUnion(input)
+            })
+            // i have to do stupid shit like this because we couldn't use react :\
+            setTimeout(function () { window.location.reload() }, 300);
+        });
 
         //to update the balance of the wallet
         $("#saveBalance").click(function () {
@@ -192,17 +236,30 @@ auth.onAuthStateChanged(user => {
         //to track Spendings and its effects on wallet's balance
         $("#saveSpending").click(function () {
             var addedSpendings = parseFloat($("#spendingInput").val())
+            var spendingCategory = $("#spendingsCategory").val()
             currentBalance -= addedSpendings
             if(currentBalance < 0){
                 currentBalance = 0
             }
-            wallet.update({
-                balance: currentBalance,
-                spendings: firebase.firestore.FieldValue.arrayUnion({
-                    amount: addedSpendings,
-                    date: new Date().toLocaleDateString()
+            if(spendingCategory !== ""){
+                wallet.update({
+                    balance: currentBalance,
+                    spendings: firebase.firestore.FieldValue.arrayUnion({
+                        amount: addedSpendings,
+                        date: new Date().toLocaleDateString(),
+                        category: spendingCategory
+                    })
                 })
-            })
+            } else {
+                wallet.update({
+                    balance: currentBalance,
+                    spendings: firebase.firestore.FieldValue.arrayUnion({
+                        amount: addedSpendings,
+                        date: new Date().toLocaleDateString(),
+                        category: "Default"
+                    })
+                })
+            }
             console.log("spendings are updated")
             setTimeout(function () { window.location.reload() }, 300);
         })
@@ -232,17 +289,68 @@ auth.onAuthStateChanged(user => {
                 })
             })
             //then use that wallet id and update the wallets array
-            console.log(firstWalletId);
-            console.log(secondWalletId);
-            console.log(thirdWalletId);
             setTimeout(function () { window.location.reload() }, 5000);
         })
+
+
+
+        //display income
+
+        // wallet.get().then(function (doc) {
+        //     //for displaying the last 3 added wallets
+        //     let length = doc.data().income.length
+        //     let incomeId = ""
+        //     let income = ""
+        //     for(let i = 0; i < length; i++){
+        //         switch (i) {
+        //             case 0:
+        //                 incomeId = doc.data().income[0]
+        //                 income = db.collection("wallets").doc(incomeId)
+        //                 income.get().then(function (doc) {
+        //                     $("#payday1").html(doc.data().payday)
+        //                     $("#incomeAmount1").html(doc.data().amount)
+        //                 })
+                       
+        //                 break;
+        //             case 1:
+        //                 incomeId = doc.data().income[1]
+        //                 income = db.collection("wallets").doc(incomeId)
+        //                 income.get().then(function (doc) {
+        //                     $("#payday2").html(doc.data().payday)
+        //                     $("#incomeAmount2").html(doc.data().amount)
+        //                 })
+        //                 break;
+        //             default:
+        //                 break;
+        //         }
+        //     }
+        // })
+
 
         //display current month
         const month = new Date();
         const monthLabel = month.toLocaleString('default', { month: 'long' })
         $("#month-label").html(monthLabel);
     
+
+
+        //save profile settings
+
+        $("#saveSettings").click(function () {
+
+         var userName = $("#name").val()
+         var userEmail = $("#email").val()
+
+         loggedInUser.update({
+
+            name: userName,
+            email: userEmail
+
+        })
+        setTimeout(function () { window.location.reload() }, 300);
+
+        });
+        
     
         //change profile pic
         $("#changePhoto").click(function () {
@@ -262,11 +370,51 @@ auth.onAuthStateChanged(user => {
             })
         });
 
+
+      
+         //save income
+        $("#saveIncome").click(function () {
+            var incomeSource = $("#incomeSourceInput").val()
+            var payday = $("#paydayInput").val()
+            var incomeAmount = parseFloat($("#incomeAmountInput").val())
+          
+            wallet.update({
+                
+                income: firebase.firestore.FieldValue.arrayUnion({
+                    amount: incomeAmount,
+                    payday: payday,
+                    source: incomeSource
+                })
+            })
+           console.log("income is updated")
+
+           setTimeout(function () { window.location.reload() }, 300);
+        });
+
         //query for all spendings within a month
-        // var monthSpendings = []
-        // wallet.get().then(function (doc) {
-        //     doc.data()
-        // })
+        var monthSpendings = []
+        var monthCategories = []
+        wallet.get().then(function (doc) {
+            let length = doc.data().spendings.length
+            console.log("the length is" + length)
+            let month = new Date().getMonth() + 1
+            console.log("current month is" + month)
+            for (let i = 0; i < length; i++){
+                let dateS = doc.data().spendings[i].date
+                console.log("spending date "+ i + " is " +dateS)
+                let monthS = dateS.split('/')
+                console.log("spending month "+ i + " is " +monthS[0])
+                if(monthS[0] == month){
+                    monthSpendings.push(doc.data().spendings[i].amount)
+                    monthCategories.push(doc.data().spendings[i].amount)
+                }
+            }
+            createLineChart(monthSpendings)
+            console.log(monthSpendings)
+        })
+        
+
+        
     }
     else {
         $("#userDisplayName").html("Hello, User")
@@ -284,3 +432,45 @@ $("#logout").click(function(){
     window.location.href = "/"
    
 });
+
+
+function createLineChart(spendings) {
+        let speaces = [];
+        let values = [];
+
+        for (var i = 0; i < spendings.length; i++) {
+          speaces.push(" ");
+          values.push(spendings[i]);
+        }
+
+        var ctx = document.getElementById("lineChart").getContext("2d");
+        var myChart = new Chart(ctx, {
+          type: "line",
+          data: {
+            labels: speaces,
+            datasets: [
+              {
+                label: "Spending",
+                data: values,
+                backgroundColor: ["rgba(54, 162, 235, 0.2)"],
+                borderColor: ["rgba(54, 162, 235, 1)"],
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: { position: "right" },
+            scales: {
+              yAxes: [
+                {
+                  ticks: {
+                    beginAtZero: true,
+                  },
+                },
+              ],
+            },
+          },
+        });
+      }

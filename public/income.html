@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Table - Brand</title>
+    <title>Income - HasalaTech</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
     <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
@@ -24,8 +24,8 @@
         <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
             <div class="container-fluid d-flex flex-column p-0">
                 <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="index.html">
-                    <div class="sidebar-brand-icon rotate-n-15"><img src="assets/img/logo.svg" style="width: 71px;height: 39px;"></div>
-                    <div class="sidebar-brand-text mx-3"><span>My Budget</span></div>
+                    <div class="sidebar-brand-icon rotate-n-15"><img alt = "HasalaTech Logo" title = "HasalaTech Logo" src="assets/img/logo.svg" style="width: 71px;height: 39px;"></div>
+                    <div class="sidebar-brand-text mx-3"><span>HasalaTech</span></div>
                 </a>
                 <hr class="sidebar-divider my-0">
                 <ul class="nav navbar-nav text-light" id="accordionSidebar">
@@ -56,7 +56,7 @@
                                         <h4 class="modal-title">Add Income</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                                     <div class="modal-body">
                                         <form>
-                                            <div class="form-group"><label>Income Source</label><input class="form-control" type="text"><label>Payday</label><input class="form-control" type="date"><label>Income Amount (SAR)</label><input class="form-control" type="number"></div>
+                                            <div class="form-group"><label>Income Source</label><input id = "incomeSourceInput" class="form-control" type="text"><label>Payday</label><input id = "paydayInput" class="form-control" type="date"><label>Income Amount (SAR)</label><input id = "incomeAmountInput" class="form-control" type="number"></div>
                                         </form>
                                     </div>
                                     <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Save</button></div>
@@ -102,28 +102,17 @@
                                     <tbody>
                                         <tr>
                                             <td>Salary</td>
-                                            <td>27th of each month</td>
-                                            <td>SR4500</td>
+                                            <td id = "payday1" >---</td>
+                                            <td id = "incomeAmount1" >---</td>
                                             <td style="text-align: center;"><a class="btn btn-success btn-circle ml-1" role="button" id="editIncome"><i class="fas fa-edit text-white"></i></a><a class="btn btn-danger btn-circle ml-1" role="button"><i class="fas fa-trash text-white"></i></a></td>
                                         </tr>
                                         <tr>
                                             <td>Stipned</td>
-                                            <td>27th of each month</td>
-                                            <td>SR990</td>
+                                            <td id = "payday2" >---</td>
+                                            <td id = "incomeAmount2">---</td>
                                             <td style="text-align: center;"><a class="btn btn-success btn-circle ml-1" role="button"><i class="fas fa-edit text-white"></i></a><a class="btn btn-danger btn-circle ml-1" role="button"><i class="fas fa-trash text-white"></i></a></td>
                                         </tr>
-                                        <tr>
-                                            <td style="padding-right: 0px;">Citizen's Account</td>
-                                            <td>10th of each month</td>
-                                            <td>SR550</td>
-                                            <td style="text-align: center;"><a class="btn btn-success btn-circle ml-1" role="button"><i class="fas fa-edit text-white"></i></a><a class="btn btn-danger btn-circle ml-1" role="button"><i class="fas fa-trash text-white"></i></a></td>
-                                        </tr>
-                                        <tr>
-                                            <td style="padding-right: 0px;">Part-Time Job</td>
-                                            <td>15th of each month</td>
-                                            <td>SR1000</td>
-                                            <td style="text-align: center;"><a class="btn btn-success btn-circle ml-1" role="button"><i class="fas fa-edit text-white"></i></a><a class="btn btn-danger btn-circle ml-1" role="button"><i class="fas fa-trash text-white"></i></a></td>
-                                        </tr>
+                                      
                                     </tbody>
                                     <tfoot>
                                         <tr></tr>
@@ -154,7 +143,7 @@
             </div>
             <footer class="bg-white sticky-footer">
                 <div class="container my-auto">
-                    <div class="text-center my-auto copyright"><span>Copyright © MyBudget 2020</span></div>
+                    <div class="text-center my-auto copyright"><span>Copyright © HasalaTech 2020</span></div>
                 </div>
             </footer>
         </div>

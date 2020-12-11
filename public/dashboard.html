@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Dashboard - Brand</title>
+    <title>Dashboard - HasalaTech</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
     <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
@@ -98,9 +98,11 @@
                 <div class="modal-body">
                     <form>
                         <div class="form-group"><label>Amount (SAR)</label><input id="spendingInput" class="form-control" type="number">
-                            <div class="dropdown" style="margin-top: 14px;"><button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false" type="button">Category&nbsp;</button>
-                                <div class="dropdown-menu"><a class="dropdown-item" href="#">First Item</a><a class="dropdown-item" href="#">Second Item</a><a class="dropdown-item" href="#">Third Item</a></div>
-                            </div>
+                            
+                            <label>Category</label>
+                            <input id="spendingsCategory" class="form-control" type="text">
+
+                            
                         </div>
                     </form>
                 </div>
@@ -129,10 +131,10 @@
                     <h4 class="modal-title">Add Category</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                 <div class="modal-body">
                     <form>
-                        <div class="form-group"><label>Category</label><input class="form-control" type="text"><small class="form-text text-muted">This category will be available when you add amounts</small></div>
+                        <div class="form-group"><label>Category</label><input id="categoryInput" class="form-control" type="text"></div>
                     </form>
                 </div>
-                <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Save</button></div>
+                <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Close</button><button id="saveCategory" class="btn btn-primary" type="button">Save</button></div>
             </div>
         </div>
     </div>
@@ -141,7 +143,7 @@
             <div class="container-fluid d-flex flex-column p-0">
                 <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="index.html">
                     <div class="sidebar-brand-icon rotate-n-15"><img src="assets/img/logo.svg" style="width: 71px;height: 39px;"></div>
-                    <div class="sidebar-brand-text mx-3"><span>My Budget</span></div>
+                    <div class="sidebar-brand-text mx-3"><span>HasalaTech</span></div>
                 </a>
                 <hr class="sidebar-divider my-0">
                 <ul class="nav navbar-nav text-light" id="accordionSidebar">
@@ -190,7 +192,7 @@
                                         <div class="col mr-2">
                                             <div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span>Today's spendings</span></div>
                                             <div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span id="spendingDisplay" style="font-size: 20px;">0 SR&nbsp;</span>
-                                                <p id="spendingCompare" class="text-success">(0) from yesterday</p>
+                                               
                                             </div>
                                         </div>
                                         <div class="col-auto"><button id= "spendings-modal-button" type="button" class="btn btn-outline-primary">
@@ -365,7 +367,6 @@
     <script src="/__/firebase/init.js"></script>
     
     <!--
-
     <script>const firebaseConfig = {
         apiKey: "AIzaSyC5P3NmqxPDFfb7F81co7VDQPLdS0BYxSY",
         authDomain: "hasalatech-14b00.firebaseapp.com",
