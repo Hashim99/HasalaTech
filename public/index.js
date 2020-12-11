@@ -204,6 +204,7 @@ auth.onAuthStateChanged(user => {
                 })
             })
             console.log("spendings are updated")
+            console.log(monthSpendings)
             setTimeout(function () { window.location.reload() }, 300);
         })
 
@@ -263,10 +264,23 @@ auth.onAuthStateChanged(user => {
         });
 
         //query for all spendings within a month
-        // var monthSpendings = []
-        // wallet.get().then(function (doc) {
-        //     doc.data()
-        // })
+        var monthSpendings = []
+        wallet.get().then(function (doc) {
+            let length = doc.data().spendings.length
+            let month = new Date().getMonth() + 1
+            for (let i = 0; i < length; i++){
+                let dateS = doc.data().spendings[i].date
+                let monthS = dateS.split('/')
+                if(monthS[0] === month){
+                    monthSpendings.push({
+                        amount: doc.data().spendings[i].amount,
+                        date: doc.data().spendings[i].date
+                    })
+                }
+            }
+        })
+
+        
     }
     else {
         $("#userDisplayName").html("Hello, User")
