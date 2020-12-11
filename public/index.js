@@ -77,8 +77,6 @@ auth.onAuthStateChanged(user => {
             console.log("Error getting document:", error);
         })
 
-        //an infinite loop is happening and slowing the website, we have to find a solution. (?)
-
         loggedInUser.get().then(function (doc) {
             //for displaying the last 3 added wallets
             let length = doc.data().wallets.length
@@ -115,6 +113,14 @@ auth.onAuthStateChanged(user => {
                 }
             }
         })
+
+        //edit the displayed wallet (either name or balance)
+        
+
+
+        //delete the displayed wallet (either name or balance)
+
+
 
         //to update the balance of the wallet
         $("#saveBalance").click(function () {
